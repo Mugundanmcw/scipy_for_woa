@@ -51,6 +51,13 @@ jobs:
           Start-Process -FilePath ".\LLVM-woa64.exe" -ArgumentList "/S" -Wait
           echo "C:\Program Files\LLVM\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
+      - name: Install Rtools 4.4 ARM64
+        shell: powershell
+        run: |
+          Invoke-WebRequest -Uri https://cran.r-project.org/bin/windows/Rtools/rtools44/files/rtools44-aarch64-6459-6401.exe -OutFile rtools44-arm64.exe
+          Start-Process -FilePath .\rtools44-arm64.exe -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
+          echo "C:\rtools44\ucrt64\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
       - name: pip-packages
         run: |
           pip install -i https://pypi.anaconda.org/scientific-python-nightly-wheels/simple numpy
