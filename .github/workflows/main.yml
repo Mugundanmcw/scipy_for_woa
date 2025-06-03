@@ -39,8 +39,6 @@ jobs:
         with:
           python-version: '3.12'
           architecture: 'arm64'
-          cache: 'pip'
-          cache-dependency-path: 'environment.yml'
 
       - name: Setup visual studio
         uses: microsoft/setup-msbuild@v2
@@ -57,6 +55,7 @@ jobs:
           Invoke-WebRequest -Uri https://cran.r-project.org/bin/windows/Rtools/rtools44/files/rtools44-aarch64-6459-6401.exe -OutFile rtools44-arm64.exe
           Start-Process -FilePath .\rtools44-arm64.exe -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
           echo "C:\rtools44\ucrt64\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          pkg-config --version
 
       - name: pip-packages
         run: |
