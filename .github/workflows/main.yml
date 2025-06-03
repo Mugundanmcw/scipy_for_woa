@@ -59,9 +59,9 @@ jobs:
 
       - name: Build
         run: |
-          set cc=clang-cl
-          set cxx=clang-cl
-          set fc=flang-new
+          $env:cc = "clang-cl"
+          $env:cxx = "clang-cl"
+          $env:fc = "flang-new"
           spin build --with-scipy-openblas
 
       - name: Test
