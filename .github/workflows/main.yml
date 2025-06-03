@@ -46,6 +46,7 @@ jobs:
           Invoke-WebRequest https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.5/LLVM-19.1.5-woa64.exe -UseBasicParsing -OutFile LLVM-woa64.exe
           Start-Process -FilePath ".\LLVM-woa64.exe" -ArgumentList "/S" -Wait
           echo "C:\Program Files\LLVM\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          where pkg-config
 
       - name: Install Rtools 4.4 and fix pkg-config path
         shell: powershell
@@ -55,6 +56,7 @@ jobs:
           echo "C:\rtools44\ucrt64\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8
           $newPath = ($env:PATH -split ";" | Where-Object {$_ -notmatch "Strawberry\\perl"} ) -join ";"
           [System.Environment]::SetEnvironmentVariable("PATH", $newPath, [System.EnvironmentVariableTarget]::Process)
+          where pkg-config
 
       - name: pip-packages
         run: |
