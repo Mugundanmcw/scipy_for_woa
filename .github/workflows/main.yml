@@ -3,6 +3,7 @@ name: Windows ARM64 tests
 on:
   push:
     branches:
+      - main
       - maintenance/**
   pull_request:
     branches:
