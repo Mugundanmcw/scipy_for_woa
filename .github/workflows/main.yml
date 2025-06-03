@@ -55,7 +55,8 @@ jobs:
 
       - name: pip-packages
         run: |
-          pip install numpy cython pybind11 pythran meson ninja pytest pytest-xdist pytest-timeout pooch spin hypothesis
+          pip install -i https://pypi.anaconda.org/scientific-python-nightly-wheels/simple numpy
+          pip install cython pybind11 pythran meson ninja pytest pytest-xdist pytest-timeout pooch spin hypothesis
           python -m pip install -r requirements/openblas.txt
 
       - name: Build
