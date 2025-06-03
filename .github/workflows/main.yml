@@ -3,32 +3,30 @@ name: Windows ARM64 tests
 on:
   push:
     branches:
+      - main
       - maintenance/**
   pull_request:
     branches:
       - main
       - maintenance/**
 
-permissions:
-   contents: read  # to fetch code (actions/checkout)
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
-  cancel-in-progress: true
-
 jobs:
   get_commit_message:
     name: Get commit message
-    uses: ./.github/workflows/commit_message.yml
+    # Comment this out if you don't have the file
+    # uses: ./.github/workflows/commit_message.yml
+    runs-on: ubuntu-latest
+    outputs:
+      message: 1
+    steps:
+      - name: Dummy step
+        run: echo "Fake commit message output"
 
   fast_spin:
     name: fast, py3.12/npAny, spin
     needs: get_commit_message
-    # Ensure (a) this doesn't run on forks by default, and
-    #        (b) it does run with Act locally (`github` doesn't exist there)
-    if: >
-      needs.get_commit_message.outputs.message == 1
-      && (github.repository == 'scipy/scipy' || github.repository == '')
+    if: needs.get_commit_message.outputs.message == 1
+
     runs-on: windows-11-arm
     steps:
       - name: Checkout
