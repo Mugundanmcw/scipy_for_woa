@@ -57,7 +57,9 @@ jobs:
         run: |
           pip install -i https://pypi.anaconda.org/scientific-python-nightly-wheels/simple numpy
           pip install cython pybind11 pythran meson ninja pytest pytest-xdist pytest-timeout pooch spin hypothesis
-          python -m pip install -r requirements/openblas.txt
+          Invoke-WebRequest -Uri "https://drive.google.com/uc?export=download&id=1BN88giFsajK21eoxRBfH8oY3UaJALxfO" -OutFile "scipy_openblas32-0.3.29.265.0-py3-none-win_arm64.whl"
+          pip install .\scipy_openblas32-0.3.29.265.0-py3-none-win_arm64.whl
+
 
       - name: Build
         run: |
