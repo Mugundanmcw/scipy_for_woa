@@ -55,15 +55,14 @@ jobs:
 
       - name: pip-packages
         run: |
-          pip install -i https://pypi.anaconda.org/scientific-python-nightly-wheels/simple numpy
-          pip install cython pybind11 pythran meson ninja pytest pytest-xdist pytest-timeout pooch spin hypothesis
           pip install gdown
+          gdown https://drive.google.com/uc?id=1qO0WGijNJld7qEL51NCKcvvv3t3sm6PQ -O meson-1.8.99-py3-none-any.whl
+          pip install meson-1.8.99-py3-none-any.whl
           gdown https://drive.google.com/uc?id=15ueRosNBVSkQBO5mQfkXg9ktWulX3CpU -O scipy_openblas32-0.3.29.265.0-py3-none-win_arm64.whl
           pip install scipy_openblas32-0.3.29.265.0-py3-none-win_arm64.whl
-
-
-
-
+          pip install -i https://pypi.anaconda.org/scientific-python-nightly-wheels/simple numpy
+          pip install cython pybind11 pythran ninja pytest pytest-xdist pytest-timeout pooch spin hypothesis
+          
       - name: Build
         run: |
           $env:cc = "clang-cl"
